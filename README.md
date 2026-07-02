@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MindGrid
 
-## Getting Started
+A nonprofit ed-tech platform — free courses, mentors, and community-funded
+scholarships. Built with Next.js 16 (App Router), TypeScript, and Tailwind CSS.
 
-First, run the development server:
+**Verified**: `npm run build` and `npx eslint .` both pass clean on this
+codebase (checked before delivery).
+
+## Setup
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Design system
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Neumorphism** is the base surface language — `.neu-raised`, `.neu-pressed`,
+  `.neu-inset` utility classes in `src/app/globals.css`, used for cards, nav,
+  buttons, and inputs.
+- **Skeuomorphism** is reserved for three signature elements only, so it reads
+  as an intentional accent rather than fighting the neumorphic base:
+  - `ProgressDial` — circular gauge with a metal bezel (weekly goal)
+  - `Medal` — metallic achievement badge with ribbon
+  - `ImpactMeter` — liquid-fill glass tube (donor/impact stats)
+- **Bento grid** — `src/components/bento/` — the dashboard is an asymmetric
+  grid of differently-sized tiles (`BentoGrid` + `BentoItem` with `colSpan`/
+  `rowSpan` props), not a uniform card list.
+- **Dark/light mode** — designed as a token pair in `globals.css` (`:root`/
+  `.dark` vs `.light`), not an inversion. Toggle lives in the topbar and
+  persists to `localStorage`.
 
-## Learn More
+All colors are semantic CSS variables (`--bg`, `--surface`, `--accent`, `--gold`,
+etc.) — no raw hex codes in components — so retheming means editing tokens in
+one place.
 
-To learn more about Next.js, take a look at the following resources:
+## Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+src/
+  app/
+    layout.tsx          Root shell: fonts, theme provider, sidebar/topbar
+    page.tsx             Dashboard (bento grid)
+    courses/page.tsx      Course catalog
+    globals.css           Design tokens + neumorphic/skeuomorphic utilities
+  components/
+    ui/                   Base primitives (NeuCard, NeuButton, ProgressDial,
+                           ToggleSwitch, Medal, ImpactMeter, CourseCard, ...)
+    layout/               Sidebar, Topbar, MobileNav
+    bento/                BentoGrid, BentoItem
+    dashboard/             Composed dashboard cards
+  lib/
+    utils.ts               cn() + formatters
+    mock-data.ts            Sample data — swap for real API/DB calls
+    theme-provider.tsx        Dark/light context
+  types/
+    index.ts                 Domain types (Course, Learner, Achievement, ...)
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Next steps
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Wire `lib/mock-data.ts` up to a real data source (Prisma, Supabase, etc.)
+- Add auth (the Sidebar/Topbar assume a signed-in learner)
+- Build out `/community`, `/impact`, and `/settings` (currently linked but
+  not yet implemented — everything else routes correctly)

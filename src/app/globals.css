@@ -1,26 +1,165 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* -------------------------------------------------------------------- */
+/*  MindGrid design tokens                                              */
+/*  Dark is the default surface language (neumorphism reads best on     */
+/*  dark charcoal); light mode is a designed pair, not an inversion.    */
+/* -------------------------------------------------------------------- */
+
+:root,
+.dark {
+  --bg: #14161b;
+  --surface: #1c1f26;
+  --surface-raised: #21252d;
+  --border: rgba(255, 255, 255, 0.06);
+
+  --text-primary: #edeff3;
+  --text-secondary: #a6acb9;
+  --text-muted: #6e7480;
+
+  --accent: #6c7dff;
+  --accent-strong: #8b98ff;
+  --accent-soft: rgba(108, 125, 255, 0.16);
+
+  --gold: #e8b564;
+  --gold-light: #f6d9a0;
+  --gold-dark: #b8873e;
+
+  --success: #4ade80;
+  --danger: #f87171;
+  --warning: #fbbf24;
+
+  /* Neumorphic shadow pair: dark shadow (recedes) / light shadow (catches light) */
+  --neu-shadow-dark: rgba(0, 0, 0, 0.6);
+  --neu-shadow-light: rgba(255, 255, 255, 0.035);
+
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.light {
+  --bg: #eef0f4;
+  --surface: #e9ebf0;
+  --surface-raised: #f3f4f8;
+  --border: rgba(15, 18, 25, 0.07);
+
+  --text-primary: #1b1e24;
+  --text-secondary: #4b5160;
+  --text-muted: #7c8290;
+
+  --accent: #4f63e0;
+  --accent-strong: #3b4fcc;
+  --accent-soft: rgba(79, 99, 224, 0.12);
+
+  --gold: #c99245;
+  --gold-light: #e4b978;
+  --gold-dark: #9c6e2e;
+
+  --success: #16a34a;
+  --danger: #dc2626;
+  --warning: #b45309;
+
+  --neu-shadow-dark: rgba(163, 168, 178, 0.55);
+  --neu-shadow-light: rgba(255, 255, 255, 0.9);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  border-color: var(--border);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* -------------------------------------------------------------------- */
+/*  Neumorphism — the base surface language                             */
+/* -------------------------------------------------------------------- */
+
+@layer components {
+  .neu-surface {
+    background: var(--surface);
+    border: 1px solid var(--border);
+  }
+
+  .neu-raised {
+    background: var(--surface);
+    border-radius: theme("borderRadius.neu");
+    box-shadow: theme("boxShadow.neu-raised");
+  }
+
+  .neu-raised-sm {
+    background: var(--surface);
+    border-radius: theme("borderRadius.neu-sm");
+    box-shadow: theme("boxShadow.neu-raised-sm");
+  }
+
+  .neu-pressed {
+    background: var(--surface);
+    border-radius: theme("borderRadius.neu-sm");
+    box-shadow: theme("boxShadow.neu-pressed");
+  }
+
+  .neu-inset {
+    background: var(--surface);
+    border-radius: theme("borderRadius.neu-sm");
+    box-shadow: theme("boxShadow.neu-pressed-sm");
+  }
+
+  .neu-interactive {
+    transition: box-shadow 180ms ease-out, transform 180ms ease-out;
+  }
+
+  .neu-interactive:active {
+    box-shadow: theme("boxShadow.neu-pressed-sm");
+    transform: translateY(1px);
+  }
+
+  /* -------------------------------------------------------------------- */
+  /*  Skeuomorphism — reserved for signature elements only                */
+  /*  (progress dial, achievement medals, impact meter)                   */
+  /* -------------------------------------------------------------------- */
+
+  .skeu-metal-gold {
+    background: linear-gradient(145deg, var(--gold-light), var(--gold-dark));
+    box-shadow: theme("boxShadow.skeu-metal");
+  }
+
+  .skeu-glass-tube {
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.06),
+      rgba(255, 255, 255, 0.01)
+    );
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.45),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  }
+
+  .focus-ring {
+    outline: none;
+  }
+
+  .focus-ring:focus-visible {
+    box-shadow: theme("boxShadow.focus-ring");
+  }
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
