@@ -1,3 +1,5 @@
+"use client";
+
 import { BentoGrid } from "@/components/bento/BentoGrid";
 import { BentoItem } from "@/components/bento/BentoItem";
 import { WelcomeCard } from "@/components/dashboard/WelcomeCard";
@@ -7,25 +9,29 @@ import { ImpactCard } from "@/components/dashboard/ImpactCard";
 import { AchievementsCard } from "@/components/dashboard/AchievementsCard";
 import { LeaderboardCard } from "@/components/dashboard/LeaderboardCard";
 import { UpcomingSessionCard } from "@/components/dashboard/UpcomingSessionCard";
+import { useAuth } from "@/lib/auth-provider";
 import {
   achievements,
   courses,
-  currentLearner,
   impactStats,
   leaderboard,
   upcomingSession,
+  currentLearner as fallbackLearner
 } from "@/lib/mock-data";
 
 export default function DashboardPage() {
+  const { user } = useAuth();
+  const learner = user || fallbackLearner;
+
   return (
     <div className="py-6">
       <BentoGrid>
         <BentoItem colSpan={3}>
-          <WelcomeCard learner={currentLearner} />
+          <WelcomeCard learner={learner} />
         </BentoItem>
 
         <BentoItem colSpan={1}>
-          <WeeklyGoalCard learner={currentLearner} />
+          <WeeklyGoalCard learner={learner} />
         </BentoItem>
 
         <BentoItem colSpan={2}>

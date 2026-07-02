@@ -4,12 +4,15 @@ import { Bell, Search, Moon, Sun } from "lucide-react";
 import { useTheme } from "@/lib/theme-provider";
 import { ToggleSwitch } from "@/components/ui/ToggleSwitch";
 import { Avatar } from "@/components/ui/Avatar";
-import { currentLearner } from "@/lib/mock-data";
+import { useAuth } from "@/lib/auth-provider";
+import { currentLearner as fallbackLearner } from "@/lib/mock-data";
 import { useState, useEffect } from "react";
 
 export function Topbar() {
   const { theme, toggleTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const { user } = useAuth();
+  const learner = user || fallbackLearner;
 
   useEffect(() => {
     setMounted(true);
@@ -53,7 +56,7 @@ export function Topbar() {
           />
         </button>
 
-        <Avatar initials={currentLearner.initials} />
+        <Avatar initials={learner.initials} />
       </div>
     </header>
   );

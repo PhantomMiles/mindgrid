@@ -1,9 +1,25 @@
+"use client";
+
 import Link from "next/link";
 import { Grid3x3 } from "lucide-react";
 import { NeuCard } from "@/components/ui/NeuCard";
 import { NeuButton } from "@/components/ui/NeuButton";
+import { useAuth } from "@/lib/auth-provider";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function SignInPage() {
+  const { login } = useAuth();
+  const router = useRouter();
+  
+  const [email, setEmail] = useState("");
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    login(email);
+    router.push("/dashboard");
+  };
+
   return (
     <div className="min-h-dvh flex items-center justify-center p-4">
       <div className="w-full max-w-md">
@@ -23,7 +39,7 @@ export default function SignInPage() {
         </div>
 
         <NeuCard className="p-8">
-          <form className="space-y-6" action="/dashboard">
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-ink-secondary mb-2">
                 Email Address
@@ -32,6 +48,8 @@ export default function SignInPage() {
                 type="email"
                 id="email"
                 required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
                 className="w-full neu-pressed rounded-neu-sm px-4 py-3 text-ink focus:outline-none focus:ring-2 focus:ring-accent-soft bg-transparent"
               />
@@ -55,11 +73,11 @@ export default function SignInPage() {
               />
             </div>
 
-            <Link href="/dashboard" className="block pt-2">
-              <NeuButton variant="primary" className="w-full flex justify-center py-3">
+            <div className="pt-2">
+              <NeuButton variant="primary" className="w-full flex justify-center py-3" type="submit">
                 Sign In
               </NeuButton>
-            </Link>
+            </div>
           </form>
         </NeuCard>
 

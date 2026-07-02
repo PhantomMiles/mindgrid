@@ -4,9 +4,13 @@ import { useState } from "react";
 import { NeuCard } from "@/components/ui/NeuCard";
 import { NeuButton } from "@/components/ui/NeuButton";
 import { ToggleSwitch } from "@/components/ui/ToggleSwitch";
-import { currentLearner } from "@/lib/mock-data";
+import { useAuth } from "@/lib/auth-provider";
+import { currentLearner as fallbackLearner } from "@/lib/mock-data";
 
 export default function SettingsPage() {
+  const { user } = useAuth();
+  const learner = user || fallbackLearner;
+
   const [emailNotifications, setEmailNotifications] = useState(true);
   const [publicProfile, setPublicProfile] = useState(true);
 
@@ -30,7 +34,7 @@ export default function SettingsPage() {
               <input
                 type="text"
                 id="name"
-                defaultValue={currentLearner.name}
+                defaultValue={learner.name}
                 className="w-full neu-pressed rounded-neu-sm px-4 py-2 text-ink focus:outline-none focus:ring-2 focus:ring-accent-soft bg-transparent"
               />
             </div>
@@ -41,7 +45,7 @@ export default function SettingsPage() {
               <input
                 type="email"
                 id="email"
-                defaultValue="amara@example.com"
+                defaultValue={`${learner.name.toLowerCase().replace(" ", ".")}@example.com`}
                 className="w-full neu-pressed rounded-neu-sm px-4 py-2 text-ink focus:outline-none focus:ring-2 focus:ring-accent-soft bg-transparent"
               />
             </div>

@@ -1,9 +1,26 @@
+"use client";
+
 import Link from "next/link";
 import { Grid3x3 } from "lucide-react";
 import { NeuCard } from "@/components/ui/NeuCard";
 import { NeuButton } from "@/components/ui/NeuButton";
+import { useAuth } from "@/lib/auth-provider";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function SignUpPage() {
+  const { signup } = useAuth();
+  const router = useRouter();
+  
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    signup(name, email);
+    router.push("/dashboard");
+  };
+
   return (
     <div className="min-h-dvh flex items-center justify-center p-4">
       <div className="w-full max-w-md">
@@ -23,7 +40,7 @@ export default function SignUpPage() {
         </div>
 
         <NeuCard className="p-8">
-          <form className="space-y-6" action="/dashboard">
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-ink-secondary mb-2">
                 Full Name
@@ -32,6 +49,8 @@ export default function SignUpPage() {
                 type="text"
                 id="name"
                 required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 placeholder="Amara"
                 className="w-full neu-pressed rounded-neu-sm px-4 py-3 text-ink focus:outline-none focus:ring-2 focus:ring-accent-soft bg-transparent"
               />
@@ -45,6 +64,8 @@ export default function SignUpPage() {
                 type="email"
                 id="email"
                 required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
                 className="w-full neu-pressed rounded-neu-sm px-4 py-3 text-ink focus:outline-none focus:ring-2 focus:ring-accent-soft bg-transparent"
               />
@@ -63,11 +84,11 @@ export default function SignUpPage() {
               />
             </div>
 
-            <Link href="/dashboard" className="block pt-2">
-              <NeuButton variant="primary" className="w-full flex justify-center py-3">
+            <div className="pt-2">
+              <NeuButton variant="primary" className="w-full flex justify-center py-3" type="submit">
                 Create Account
               </NeuButton>
-            </Link>
+            </div>
           </form>
         </NeuCard>
 
