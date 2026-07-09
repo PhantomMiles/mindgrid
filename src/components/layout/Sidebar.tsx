@@ -24,7 +24,7 @@ export function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="hidden w-[240px] shrink-0 flex-col gap-8 border-r border-border bg-bg px-4 py-6 lg:flex">
+    <aside className="hidden w-[240px] shrink-0 flex-col gap-6 border-r border-border bg-bg px-4 py-6 lg:flex sticky top-0 h-screen overflow-y-auto">
       <Link href="/" className="flex items-center gap-2.5 px-2">
         <div
           className="skeu-metal-gold flex h-9 w-9 items-center justify-center rounded-neu-sm"
@@ -37,7 +37,7 @@ export function Sidebar() {
         </span>
       </Link>
 
-      <nav aria-label="Primary" className="flex-1">
+      <nav aria-label="Primary">
         <ul className="flex flex-col gap-1.5">
           {NAV_ITEMS.map((item) => {
             const Icon = item.icon;
@@ -74,6 +74,8 @@ export function Sidebar() {
           Support MindGrid
         </Link>
       </div>
+
+      <div className="flex-1" />
     </aside>
   );
 }
