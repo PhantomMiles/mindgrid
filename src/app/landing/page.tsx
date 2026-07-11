@@ -12,6 +12,10 @@ import { FinalCTA } from "@/components/landing/FinalCTA";
 import { HowItWorks } from "@/components/landing/HowItWorks";
 import { FAQ } from "@/components/landing/FAQ";
 import { AppPreview } from "@/components/landing/AppPreview";
+import { AboutTeaser } from "@/components/landing/AboutTeaser";
+import { FeaturedCourses } from "@/components/landing/FeaturedCourses";
+import { InstructorSpotlight } from "@/components/landing/InstructorSpotlight";
+import { ProjectShowcase } from "@/components/landing/ProjectShowcase";
 
 export default function LandingPage() {
   return (
@@ -19,8 +23,9 @@ export default function LandingPage() {
       
       <MarketingHeader />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-6 relative">
-        {/* Radial glow backdrop — indigo + gold blend, on-brand rather than a generic purple gradient */}
+      {/* Hero Section Container */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-6 relative w-full max-w-7xl mx-auto">
+        {/* Radial glow backdrop */}
         <div
           className="pointer-events-none absolute inset-x-0 -top-40 h-[560px]"
           aria-hidden="true"
@@ -41,11 +46,19 @@ export default function LandingPage() {
         <AppPreview />
       </div>
 
+      <TrustBar />
+
+      <FeatureGrid />
+
+      <ProjectShowcase />
+
       <HowItWorks />
 
-      <TrustBar />
-      
-      <FeatureGrid />
+      <AboutTeaser />
+
+      <FeaturedCourses />
+
+      <InstructorSpotlight />
 
       <Testimonials />
 

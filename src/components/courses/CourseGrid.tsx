@@ -1,5 +1,5 @@
 import { Course } from "@/types";
-import { CourseCard } from "@/components/ui/CourseCard";
+import { PublicCourseCard } from "@/components/courses/PublicCourseCard";
 
 interface CourseGridProps {
   courses: Course[];
@@ -25,7 +25,7 @@ export function CourseGrid({ courses }: CourseGridProps) {
       aria-label="Course list"
     >
       {courses.map((course) => (
-        <CourseCard key={course.id} course={course} />
+        <PublicCourseCard key={course.id} course={course} />
       ))}
     </div>
   );

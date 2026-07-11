@@ -25,8 +25,11 @@ const STEPS = [
 
 export function HowItWorks() {
   return (
-    <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 overflow-hidden">
+    <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-border overflow-hidden">
       <div className="text-center max-w-2xl mx-auto mb-14">
+        <p className="text-xs font-bold uppercase tracking-wider text-accent-strong mb-2.5">
+          STEP-BY-STEP PROCESS
+        </p>
         <h2 className="font-display text-3xl sm:text-4xl font-bold text-ink">
           How MindGrid works
         </h2>

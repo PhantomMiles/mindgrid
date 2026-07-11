@@ -41,14 +41,17 @@ export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-border">
       <div className="text-center mb-12">
+        <p className="text-xs font-bold uppercase tracking-wider text-accent-strong mb-2.5">
+          COMMON QUESTIONS
+        </p>
         <h2 className="font-display text-3xl sm:text-4xl font-bold text-ink">
           Frequently asked questions
         </h2>
       </div>
 
-      <div className="flex flex-col gap-3 md:grid md:grid-cols-2">
+      <div className="flex flex-col gap-3 md:grid md:grid-cols-2 max-w-5xl mx-auto">
         {FAQS.map((faq, index) => {
           const isOpen = openIndex === index;
           return (

@@ -1,4 +1,4 @@
-import { Eye, Heart, Scale } from "lucide-react";
+import { Eye, Heart, Scale, Users, GraduationCap, LifeBuoy } from "lucide-react";
 
 const VALUES = [
   {
@@ -21,22 +21,46 @@ const VALUES = [
     title: "No paywall, ever",
     description:
       "Every course on MindGrid is free. Not free with a catch, not free for a trial — permanently free, for every learner, no questions asked.",
-  },  
+  },
+  {
+    icon: Users,
+    tone: "text-accent-strong",
+    title: "Mentorship, not just content",
+    description:
+      "Live Q&As and real mentor access — we measure success by learners who finish and land roles, not video-completion rates.",
+  },
+  {
+    icon: GraduationCap,
+    tone: "text-gold-dark",
+    title: "Built for first-gen learners",
+    description:
+      "Plain language and real context, for people who are often the first in their family to pursue this path.",
+  },
+  {
+    icon: LifeBuoy,
+    tone: "text-success",
+    title: "Support that doesn't end at graduation",
+    description:
+      "Alumni community, continued mentor access, and ongoing support — we stay with learners past course completion.",
+  },
 ];
 
 export function MissionValues() {
   return (
     <section className="w-full mb-16">
       <div className="text-center max-w-xl mx-auto mb-12">
+        <p className="text-xs font-semibold uppercase tracking-widest text-accent-strong mb-3">
+          Why MindGrid
+        </p>
         <h2 className="font-display text-3xl sm:text-4xl font-bold text-ink">
           What we stand for
         </h2>
         <p className="mt-4 text-ink-secondary">
-          Three commitments that shape every decision we make.
+          Six commitments that shape every decision we make.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {VALUES.map((v) => {
           const Icon = v.icon;
           return (

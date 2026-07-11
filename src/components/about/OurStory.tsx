@@ -25,6 +25,9 @@ export function OurStory() {
   return (
     <section className="w-full mb-16">
       <div className="text-center max-w-xl mx-auto mb-12">
+        <p className="text-xs font-semibold uppercase tracking-widest text-accent-strong mb-3">
+          How We Started
+        </p>
         <h2 className="font-display text-3xl sm:text-4xl font-bold text-ink">
           Our story
         </h2>

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Sparkles } from "lucide-react";
 
 export function AboutHero() {
@@ -19,6 +20,13 @@ export function AboutHero() {
         equally, but opportunity isn't. We're building the infrastructure to fix
         that — starting with free, mentor-led learning for every motivated
         learner, regardless of where they were born or how much money they have.
+      </p>
+
+      <p className="mt-6 text-xs text-ink-muted">
+        <Link href="/" className="hover:text-ink transition-colors">
+          Home
+        </Link>{" "}
+        / <span className="text-ink-secondary">About</span>
       </p>
     </section>
   );
